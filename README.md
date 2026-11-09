@@ -27,7 +27,14 @@ npm clone le dépôt au tag demandé, lance le build (`prepare`) dans ce clone e
 le paquet construit (`dist/` et `src/`). npm affiche ensuite « install scripts blocked » pour
 `@portail/ui` : c'est sans effet, le build a déjà eu lieu.
 
-Pour mettre à jour : poser un nouveau tag ici, puis changer le tag dans l'app.
+Pour mettre à jour : poser un nouveau tag ici, puis dans l'app **désinstaller avant de
+réinstaller**. Avec `allow-git=root`, npm 12 refuse (`EALLOWGIT`) de remplacer une version
+git déjà installée, que ce soit par `npm install` ou par `npm update` :
+
+```bash
+npm uninstall @portail/ui
+npm install github:Tometu-cyber/portail-ui#v0.2.0
+```
 
 ## Utilisation
 
