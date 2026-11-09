@@ -95,11 +95,22 @@ de l'artefact) ou un composant lucide (`icon={Plus}`) pour un pictogramme hors l
 
 ## Écarts avec l'API de l'artefact
 
-Les composants viennent de Pecunia. Un seul diffère de l'artefact (que suit hop) :
+Les composants viennent de Pecunia. Un seul diffère de l'artefact, et c'est un choix :
 
-- `Select` : options en enfants (`<option value>`) et `onChange(event)` avec
-  `event.target.value`, comme un `<select>`. L'artefact prend `options={[…]}`,
-  `onChange(value)` et `size`.
+- `Select` garde l'API de Pecunia, celle d'un `<select>` natif : options en enfants
+  (`<option value>`) et `onChange(event)` avec `event.target.value`. L'artefact (et donc hop
+  aujourd'hui) prend `options={[…]}`, `onChange(value)` et `size`.
+
+  Pour passer un appel de hop à cette API :
+
+  ```tsx
+  // avant (artefact)
+  <Select options={options} value={vue} onChange={changeVue} size="small" app="notes" />
+  // après (@portail/ui) ; la taille suit l'écran : regular sur mobile, small à partir de 768 px
+  <Select value={vue} onChange={(e) => changeVue(e.target.value)} app="notes">
+    {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+  </Select>
+  ```
 
 ## Développement
 
