@@ -5,7 +5,6 @@ export * from "./app-tile.js";
 export * from "./bar-chart.js";
 export * from "./button.js";
 export * from "./card.js";
-export * from "./category-icon.js";
 export * from "./date-picker.js";
 export * from "./ds.js";
 export * from "./glass-button.js";

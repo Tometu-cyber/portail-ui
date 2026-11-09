@@ -90,7 +90,7 @@ de l'artefact) ou un composant lucide (`icon={Plus}`) pour un pictogramme hors l
 | `tab-bar`, `sidebar` | `TabBar`, `Sidebar` |
 | `bar-chart`, `line-chart`, `progress-ring` | graphiques |
 | `swipe-actions`, `spinner` | `SwipeActions`, `Spinner` |
-| `icon`, `category-icon` | `Icon`, `Glyph` ; `IconBadge`, `iconFor` (icônes de catégories de Pecunia) |
+| `icon` | `Icon`, `Glyph`, `resolveIcon`, types `IconName`, `IconSource` |
 | `link` | `setLinkComponent`, types `LinkComponent`, `Linkable` |
 
 ## Écarts avec l'API de l'artefact

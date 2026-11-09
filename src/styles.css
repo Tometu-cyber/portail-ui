@@ -674,14 +674,6 @@ a.pt-tile { text-decoration: none; color: inherit; }
 .pt-spinner { flex: none; animation: pt-spin 1s linear infinite; }
 @keyframes pt-spin { to { transform: rotate(360deg); } }
 
-/* IconBadge : pastille ronde à la couleur d'une catégorie ou d'un compte */
-.pt-badge {
-  display: inline-flex; flex: none; align-items: center; justify-content: center;
-  width: 30px; height: 30px; border-radius: var(--radius-full); color: #ffffff;
-}
-.pt-badge-sm { width: 28px; height: 28px; }
-.pt-badge-lg { width: 44px; height: 44px; }
-
 /* Select : déclencheur à l'apparence d'un TextField, liste dans le menu en verre épais
    (repris de l'artefact). Pleine largeur ; une classe de l'app peut la changer. */
 .pt-select {
