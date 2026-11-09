@@ -4,7 +4,7 @@
  */
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
-import { appClass, type AppId } from "./ds";
+import { appClass, type AppId } from "./ds.js";
 
 export interface Ring {
   app: AppId;

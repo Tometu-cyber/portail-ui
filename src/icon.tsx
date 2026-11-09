@@ -41,7 +41,7 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
-import type { AppId } from "./ds";
+import type { AppId } from "./ds.js";
 
 export type IconName =
   | "home"

@@ -7,9 +7,9 @@
  */
 import { clsx } from "clsx";
 import { CircleAlert, Search } from "lucide-react";
-import type { IconSource } from "./icon";
+import type { IconSource } from "./icon.js";
 import { useId, type ComponentProps } from "react";
-import { appClass, Glyph, type AppId } from "./ds";
+import { appClass, Glyph, type AppId } from "./ds.js";
 
 export interface TextFieldProps extends Omit<ComponentProps<"input">, "size" | "onChange" | "value" | "defaultValue"> {
   label?: string;

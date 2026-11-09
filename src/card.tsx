@@ -5,8 +5,8 @@
  */
 import { clsx } from "clsx";
 import type { CSSProperties, ReactNode } from "react";
-import { Button } from "./button";
-import { appClass, type AppId } from "./ds";
+import { Button } from "./button.js";
+import { appClass, type AppId } from "./ds.js";
 
 export interface CardAction {
   label: string;

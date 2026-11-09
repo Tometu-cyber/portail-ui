@@ -5,7 +5,7 @@
  */
 import { clsx } from "clsx";
 import type { CSSProperties } from "react";
-import { appClass, type AppId } from "./ds";
+import { appClass, type AppId } from "./ds.js";
 
 export interface BarChartProps {
   /** 12 barres maximum */

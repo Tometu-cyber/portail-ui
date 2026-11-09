@@ -1,16 +1,40 @@
 {
   "name": "@portail/ui",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Composants React du design system Portail, partagés entre Pecunia et hop",
   "author": "Tom Courgenay",
   "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./tailwind-theme.css": "./dist/tailwind-theme.css",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepare": "node scripts/build.mjs",
     "typecheck": "tsc -p ."
   },
   "dependencies": {
     "clsx": "^2.1.1",
     "lucide-react": "^1.69.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/react": "^19.3.0",

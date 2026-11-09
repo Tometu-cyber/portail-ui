@@ -11,11 +11,11 @@
  * l'onglet sous le doigt s'ouvre au lâcher. Un simple toucher reste un toucher.
  */
 import { clsx } from "clsx";
-import type { IconSource } from "./icon";
+import type { IconSource } from "./icon.js";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
-import { appClass, Glyph, type AppId } from "./ds";
-import { GlassButton } from "./glass-button";
-import { linkTag, type LinkComponent } from "./link";
+import { appClass, Glyph, type AppId } from "./ds.js";
+import { GlassButton } from "./glass-button.js";
+import { linkTag, type LinkComponent } from "./link.js";
 
 export interface TabItem {
   id: string;

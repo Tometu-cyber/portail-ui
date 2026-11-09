@@ -5,9 +5,9 @@
  */
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
-import { AppIcon } from "./app-icon";
-import { appClass, Glyph, type AppId } from "./ds";
-import { linkTag, type Linkable } from "./link";
+import { AppIcon } from "./app-icon.js";
+import { appClass, Glyph, type AppId } from "./ds.js";
+import { linkTag, type Linkable } from "./link.js";
 
 export interface AppTileProps extends Linkable {
   app?: AppId;

@@ -4,8 +4,8 @@ import { clsx } from "clsx";
 import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import { CircleAlert, CircleCheck, X } from "lucide-react";
 import { createPortal } from "react-dom";
-import { appClass, type AppId } from "./ds";
-import { animateSpring, project, rubberband, SPRINGS, velocityFrom, type SpringAnimation, type SpringConfig } from "./motion/spring";
+import { appClass, type AppId } from "./ds.js";
+import { animateSpring, project, rubberband, SPRINGS, velocityFrom, type SpringAnimation, type SpringConfig } from "./motion/spring.js";
 
 /** Préférence système « réduire les animations ». */
 export function prefersReducedMotion(): boolean {

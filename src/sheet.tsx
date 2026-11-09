@@ -10,9 +10,9 @@ import { clsx } from "clsx";
 import { Check, X } from "lucide-react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { Button } from "./button";
-import { appClass, type AppId } from "./ds";
-import { GlassButton } from "./glass-button";
+import { Button } from "./button.js";
+import { appClass, type AppId } from "./ds.js";
+import { GlassButton } from "./glass-button.js";
 
 export interface SheetProps {
   open: boolean;

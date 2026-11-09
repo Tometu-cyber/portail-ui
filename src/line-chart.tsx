@@ -7,7 +7,7 @@
  */
 import { clsx } from "clsx";
 import { useId, useRef, useState, type PointerEvent } from "react";
-import { appClass, type AppId } from "./ds";
+import { appClass, type AppId } from "./ds.js";
 
 export interface LineChartProps {
   data: { label: string; value: number }[];

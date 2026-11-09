@@ -5,9 +5,9 @@
  * Flèches, Début et Fin changent de choix. Voir design-system/components/SegmentedControl/README.md.
  */
 import { clsx } from "clsx";
-import type { IconSource } from "./icon";
+import type { IconSource } from "./icon.js";
 import { useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
-import { appClass, Glyph, type AppId } from "./ds";
+import { appClass, Glyph, type AppId } from "./ds.js";
 
 export interface SegmentedItem<T extends string = string> {
   id: T;

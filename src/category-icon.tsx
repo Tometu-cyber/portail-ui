@@ -26,7 +26,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { clsx } from "clsx";
-import { Glyph } from "./ds";
+import { Glyph } from "./ds.js";
 
 /** Icônes nommées stockées en base (categories.icon, accounts.icon). */
 const ICONS: Record<string, LucideIcon> = {

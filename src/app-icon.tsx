@@ -7,7 +7,7 @@
  */
 import { clsx } from "clsx";
 import { useId, type ReactNode } from "react";
-import { appClass, type AppId } from "./ds";
+import { appClass, type AppId } from "./ds.js";
 
 const SQUIRCLE = "M0 50C0 9 9 0 50 0S100 9 100 50 91 100 50 100 0 91 0 50Z";
 

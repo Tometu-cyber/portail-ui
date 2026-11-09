@@ -4,10 +4,10 @@
  * par écran. Sans texte, `label` est obligatoire. Voir design-system/components/GlassButton/README.md.
  */
 import { clsx } from "clsx";
-import type { IconSource } from "./icon";
+import type { IconSource } from "./icon.js";
 import type { ReactNode } from "react";
-import { appClass, Glyph, type AppId } from "./ds";
-import { linkTag, type Linkable } from "./link";
+import { appClass, Glyph, type AppId } from "./ds.js";
+import { linkTag, type Linkable } from "./link.js";
 
 export interface GlassButtonProps extends Linkable {
   icon?: IconSource;

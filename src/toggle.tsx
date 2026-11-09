@@ -7,7 +7,7 @@
  */
 import { clsx } from "clsx";
 import { useId, useState } from "react";
-import { appClass, type AppId } from "./ds";
+import { appClass, type AppId } from "./ds.js";
 
 export interface ToggleProps {
   label?: string;

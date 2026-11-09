@@ -8,7 +8,7 @@
 import { clsx } from "clsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
-import { appClass, Glyph, type AppId } from "./ds";
+import { appClass, Glyph, type AppId } from "./ds.js";
 
 const DAYS = ["lun", "mar", "mer", "jeu", "ven", "sam", "dim"];
 const DAYS_LONG = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];

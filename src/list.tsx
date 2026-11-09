@@ -4,12 +4,12 @@
  * Voir design-system/components/List/README.md et ListRow/README.md.
  */
 import { clsx } from "clsx";
-import type { IconSource } from "./icon";
+import type { IconSource } from "./icon.js";
 import { Children, type CSSProperties, type ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
-import { AppIcon } from "./app-icon";
-import { appClass, Glyph, type AppId } from "./ds";
-import { linkTag, type Linkable } from "./link";
+import { AppIcon } from "./app-icon.js";
+import { appClass, Glyph, type AppId } from "./ds.js";
+import { linkTag, type Linkable } from "./link.js";
 
 export interface ListProps {
   header?: ReactNode;

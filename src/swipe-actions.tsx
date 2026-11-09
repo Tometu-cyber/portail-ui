@@ -2,9 +2,9 @@
 
 import { Trash2 } from "lucide-react";
 import { useEffect, useId, useRef, useState, useTransition, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
-import { animateSpring, project, rubberband, SPRINGS, velocityFrom, type SpringAnimation } from "./motion/spring";
-import { prefersReducedMotion, useToast } from "./overlay";
-import { Spinner } from "./spinner";
+import { animateSpring, project, rubberband, SPRINGS, velocityFrom, type SpringAnimation } from "./motion/spring.js";
+import { prefersReducedMotion, useToast } from "./overlay.js";
+import { Spinner } from "./spinner.js";
 
 const ACTION_WIDTH = 92;
 /** Hystérésis avant de choisir entre glisser (horizontal) et défiler (vertical) */

@@ -11,9 +11,9 @@
 import { clsx } from "clsx";
 import { ChevronLeft } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { appClass, type AppId } from "./ds";
-import { GlassButton, type GlassButtonProps } from "./glass-button";
-import { Menu, type MenuProps } from "./menu";
+import { appClass, type AppId } from "./ds.js";
+import { GlassButton, type GlassButtonProps } from "./glass-button.js";
+import { Menu, type MenuProps } from "./menu.js";
 
 export type AppHeaderAction = GlassButtonProps | { menu: MenuProps };
 

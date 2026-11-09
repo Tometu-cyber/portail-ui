@@ -7,11 +7,11 @@
  * Voir design-system/components/Sidebar/README.md.
  */
 import { clsx } from "clsx";
-import type { IconSource } from "./icon";
+import type { IconSource } from "./icon.js";
 import { Fragment, useState, type ReactNode } from "react";
-import { AppIcon } from "./app-icon";
-import { appClass, Glyph, type AppId } from "./ds";
-import { linkTag, type LinkComponent } from "./link";
+import { AppIcon } from "./app-icon.js";
+import { appClass, Glyph, type AppId } from "./ds.js";
+import { linkTag, type LinkComponent } from "./link.js";
 
 export interface SidebarItem {
   id: string;

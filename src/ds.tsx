@@ -2,7 +2,7 @@
  * Base commune des composants du design system « Portail » (design-system/README.md) :
  * identifiants d'app et pictogrammes (définis dans icon.tsx).
  */
-export { Glyph, ICON_STROKE } from "./icon";
+export { Glyph, ICON_STROKE } from "./icon.js";
 
 /** Couleur d'app : redéfinit --app, --app-text, --app-bg et --on-app (classe pt-app-<app>). */
 export type AppId = "finances" | "sport" | "alternance" | "alimentation" | "notes" | "portail";

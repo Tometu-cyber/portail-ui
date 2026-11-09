@@ -30,7 +30,7 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
-import { appClass, type AppId } from "./ds";
+import { appClass, type AppId } from "./ds.js";
 
 export interface SelectProps {
   value?: string | number;

@@ -4,10 +4,10 @@
  * Avec `href`, c'est un lien (voir link.tsx). Voir design-system/components/Button/README.md.
  */
 import { clsx } from "clsx";
-import type { IconSource } from "./icon";
+import type { IconSource } from "./icon.js";
 import type { ReactNode } from "react";
-import { appClass, Glyph, type AppId } from "./ds";
-import { linkTag, type Linkable } from "./link";
+import { appClass, Glyph, type AppId } from "./ds.js";
+import { linkTag, type Linkable } from "./link.js";
 
 export type ButtonVariant = "filled" | "tinted" | "gray" | "plain";
 export type ButtonSize = "large" | "regular" | "small";
