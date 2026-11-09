@@ -86,12 +86,22 @@ de l'artefact) ou un composant lucide (`icon={Plus}`) pour un pictogramme hors l
 | `button`, `glass-button` | `Button`, `GlassButton` |
 | `card`, `list` | `Card`, `List`, `ListRow` |
 | `text-field`, `select`, `toggle`, `segmented-control`, `date-picker` | champs et contrôles, `Calendar` |
-| `menu`, `sheet`, `overlay` | `Menu`, `Sheet`, `Modal`, `ToastProvider` / `useToast` |
+| `menu`, `sheet`, `overlay`, `toast` | `Menu`, `Sheet`, `Modal`, `Toast`, `ToastRegion` |
+| `swipe-actions`, `spinner` | `SwipeActions` (action révélée au glissé), `Spinner` |
 | `tab-bar`, `sidebar` | `TabBar`, `Sidebar` |
 | `bar-chart`, `line-chart`, `progress-ring` | graphiques |
-| `swipe-actions`, `spinner` | `SwipeActions`, `Spinner` |
 | `icon` | `Icon`, `Glyph`, `resolveIcon`, types `IconName`, `IconSource` |
 | `link` | `setLinkComponent`, types `LinkComponent`, `Linkable` |
+
+## Ce que la bibliothèque ne fait pas
+
+Elle ne contient que l'apparence et le comportement des composants (clavier, focus, gestes,
+animations), jamais la logique d'une app :
+
+- `Toast` et `ToastRegion` affichent les messages ; chaque app gère sa file et leur durée.
+- `SwipeActions` révèle une action et appelle `onAction` ; l'app fait le travail, puis
+  affiche son retour.
+- Les données propres à une app (icônes de catégories de Pecunia…) restent dans l'app.
 
 ## Écarts avec l'API de l'artefact
 

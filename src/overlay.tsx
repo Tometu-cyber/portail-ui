@@ -1,8 +1,8 @@
 "use client";
 
 import { clsx } from "clsx";
-import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
-import { CircleAlert, CircleCheck, X } from "lucide-react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { X } from "lucide-react";
 import { createPortal } from "react-dom";
 import { appClass, type AppId } from "./ds.js";
 import { animateSpring, project, rubberband, SPRINGS, velocityFrom, type SpringAnimation, type SpringConfig } from "./motion/spring.js";
@@ -232,54 +232,5 @@ export function Modal({
       </div>
     </div>,
     document.body,
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Toasts
-// ---------------------------------------------------------------------------
-
-interface ToastItem {
-  id: number;
-  message: string;
-  tone: "success" | "error";
-  leaving?: boolean;
-}
-
-const ToastContext = createContext<(message: string, tone?: ToastItem["tone"]) => void>(() => {});
-
-export function useToast() {
-  return useContext(ToastContext);
-}
-
-export function ToastProvider({ children }: { children: ReactNode }) {
-  const [toasts, setToasts] = useState<ToastItem[]>([]);
-  const push = useCallback((message: string, tone: ToastItem["tone"] = "success") => {
-    const id = Date.now() + Math.random();
-    setToasts((list) => [...list.slice(-2), { id, message, tone }]);
-    // sortie par le même chemin que l'entrée, puis retrait
-    setTimeout(() => setToasts((list) => list.map((t) => (t.id === id ? { ...t, leaving: true } : t))), 3300);
-    setTimeout(() => setToasts((list) => list.filter((t) => t.id !== id)), 3550);
-  }, []);
-
-  return (
-    <ToastContext.Provider value={push}>
-      {children}
-      <div className="pt-root pt-toasts" aria-live="polite">
-        {toasts.map((t) => (
-          <div
-            key={t.id}
-            className={clsx("pt-toast", `pt-toast-${t.tone}`, t.leaving ? "is-out" : "is-in")}
-          >
-            {t.tone === "success" ? (
-              <CircleCheck size={18} strokeWidth={2} className="pt-icon" aria-hidden />
-            ) : (
-              <CircleAlert size={18} strokeWidth={2} className="pt-icon" aria-hidden />
-            )}
-            {t.message}
-          </div>
-        ))}
-      </div>
-    </ToastContext.Provider>
   );
 }

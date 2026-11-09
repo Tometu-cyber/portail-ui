@@ -23,4 +23,5 @@ export * from "./spinner.js";
 export * from "./swipe-actions.js";
 export * from "./tab-bar.js";
 export * from "./text-field.js";
+export * from "./toast.js";
 export * from "./toggle.js";
