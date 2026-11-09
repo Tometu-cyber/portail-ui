@@ -5,12 +5,12 @@
  * `value` ou `defaultValue`) ou lancer une action (sans valeur). Un item avec `href`
  * est un lien. Voir design-system/components/Menu/README.md.
  */
-import Link from "next/link";
 import { clsx } from "clsx";
 import { Check, ChevronsUpDown, Ellipsis, type LucideIcon } from "lucide-react";
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import { AppIcon } from "./app-icon";
 import { appClass, Glyph, type AppId } from "./ds";
+import { linkTag, type LinkComponent } from "./link";
 
 export type MenuItem =
   | {
@@ -49,6 +49,8 @@ export interface MenuProps {
   align?: "start" | "end";
   defaultOpen?: boolean;
   className?: string;
+  /** Composant de lien des items avec `href` (sinon celui de setLinkComponent) */
+  linkAs?: LinkComponent;
 }
 
 const isAction = (it: MenuItem): it is ActionItem => "id" in it;
@@ -69,7 +71,9 @@ export function Menu({
   align,
   defaultOpen = false,
   className,
+  linkAs,
 }: MenuProps) {
+  const LinkTag = linkTag(linkAs);
   const selecting = value !== undefined || defaultValue !== undefined;
   const [inner, setInner] = useState(defaultValue);
   const current = value !== undefined ? value : inner;
@@ -226,9 +230,9 @@ export function Menu({
             };
             if (it.href && !it.disabled) {
               return (
-                <Link key={it.id} href={it.href} {...common} onClick={() => choose(it)}>
+                <LinkTag key={it.id} href={it.href} {...common} onClick={() => choose(it)}>
                   {body}
-                </Link>
+                </LinkTag>
               );
             }
             return (

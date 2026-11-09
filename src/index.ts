@@ -22,3 +22,4 @@ export * from "./swipe-actions";
 export * from "./tab-bar";
 export * from "./text-field";
 export * from "./toggle";
+export * from "./link";

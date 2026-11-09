@@ -10,13 +10,12 @@
  * poser le doigt sur la barre et glisser : la pastille suit le doigt, grossit un peu, et
  * l'onglet sous le doigt s'ouvre au lâcher. Un simple toucher reste un toucher.
  */
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { clsx } from "clsx";
 import type { LucideIcon } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { appClass, Glyph, type AppId } from "./ds";
 import { GlassButton } from "./glass-button";
+import { linkTag, type LinkComponent } from "./link";
 
 export interface TabItem {
   id: string;
@@ -35,6 +34,8 @@ export interface TabBarProps {
   app?: AppId;
   label?: string;
   className?: string;
+  /** Composant de lien des onglets avec `href` (sinon celui de setLinkComponent) */
+  linkAs?: LinkComponent;
 }
 
 /** Déplacement (px) au-delà duquel un toucher devient un glissé. */
@@ -45,14 +46,13 @@ interface Rect {
   width: number;
 }
 
-export function TabBar({ items, active, defaultActive, onChange, action, app, label = "Navigation principale", className }: TabBarProps) {
-  const router = useRouter();
+export function TabBar({ items, active, defaultActive, onChange, action, app, label = "Navigation principale", className, linkAs }: TabBarProps) {
+  const LinkTag = linkTag(linkAs);
   const [inner, setInner] = useState(defaultActive ?? items[0]?.id);
   // Onglet choisi au doigt, affiché tout de suite pendant que la navigation se fait
   const [pending, setPending] = useState<string | null>(null);
   const current = pending ?? active ?? inner;
   const navRef = useRef<HTMLElement>(null);
-  const tabRefs = useRef<(HTMLElement | null)[]>([]);
   const [rects, setRects] = useState<Rect[]>([]);
   const [drag, setDrag] = useState<{ x: number; over: number } | null>(null);
   const gesture = useRef<{ id: number; startX: number; dragging: boolean; over: number } | null>(null);
@@ -61,7 +61,9 @@ export function TabBar({ items, active, defaultActive, onChange, action, app, la
   useEffect(() => setPending(null), [active]);
 
   const measure = useCallback(() => {
-    setRects(tabRefs.current.map((el) => (el ? { left: el.offsetLeft, width: el.offsetWidth } : { left: 0, width: 0 })));
+    // mesuré dans le DOM : un composant de lien n'a pas à transmettre de ref
+    const tabs = navRef.current ? Array.from(navRef.current.querySelectorAll<HTMLElement>(":scope > .pt-tab")) : [];
+    setRects(tabs.map((el) => ({ left: el.offsetLeft, width: el.offsetWidth })));
   }, []);
   useLayoutEffect(() => {
     measure();
@@ -121,8 +123,9 @@ export function TabBar({ items, active, defaultActive, onChange, action, app, la
     const it = items[g.over];
     if (!it || it.id === current) return;
     setPending(it.id);
-    select(it.id);
-    if (it.href) router.push(it.href);
+    // un lien : on le « clique », c'est le composant de lien de l'app qui navigue
+    if (it.href) navRef.current?.querySelectorAll<HTMLElement>(":scope > .pt-tab")[g.over]?.click();
+    else select(it.id);
   };
 
   // Pastille : sous l'onglet actif, ou centrée sous le doigt pendant un glissé
@@ -155,9 +158,6 @@ export function TabBar({ items, active, defaultActive, onChange, action, app, la
         {pill && <span className="pt-tab-pill" style={pill} aria-hidden />}
         {items.map((it, i) => {
           const props = {
-            ref: (el: HTMLElement | null) => {
-              tabRefs.current[i] = el;
-            },
             className: clsx("pt-tab", drag?.over === i && "is-over"),
             "aria-current": it.id === current ? ("page" as const) : undefined,
             onClick: () => select(it.id),
@@ -169,18 +169,18 @@ export function TabBar({ items, active, defaultActive, onChange, action, app, la
             </>
           );
           return it.href ? (
-            <Link key={it.id} href={it.href} {...props} ref={props.ref as (el: HTMLAnchorElement | null) => void} draggable={false}>
+            <LinkTag key={it.id} href={it.href} {...props} draggable={false}>
               {content}
-            </Link>
+            </LinkTag>
           ) : (
-            <button key={it.id} type="button" {...props} ref={props.ref as (el: HTMLButtonElement | null) => void}>
+            <button key={it.id} type="button" {...props}>
               {content}
             </button>
           );
         })}
       </nav>
       {action && (
-        <GlassButton icon={action.icon} label={action.label} href={action.href} onClick={action.onClick} app={app} prominent={action.prominent} />
+        <GlassButton icon={action.icon} label={action.label} href={action.href} linkAs={linkAs} onClick={action.onClick} app={app} prominent={action.prominent} />
       )}
     </div>
   );

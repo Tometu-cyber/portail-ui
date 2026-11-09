@@ -3,13 +3,13 @@
  * contenu (ajouter, mois précédent…). `prominent` = plein à la couleur de l'app, un seul
  * par écran. Sans texte, `label` est obligatoire. Voir design-system/components/GlassButton/README.md.
  */
-import Link from "next/link";
 import { clsx } from "clsx";
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { appClass, Glyph, type AppId } from "./ds";
+import { linkTag, type Linkable } from "./link";
 
-export interface GlassButtonProps {
+export interface GlassButtonProps extends Linkable {
   icon?: LucideIcon;
   /** Nom lu par les lecteurs d'écran (obligatoire sans texte) */
   label?: string;
@@ -18,13 +18,12 @@ export interface GlassButtonProps {
   app?: AppId;
   size?: "regular" | "small";
   type?: "button" | "submit";
-  href?: string;
   disabled?: boolean;
   onClick?: () => void;
   className?: string;
 }
 
-export function GlassButton({ icon, label, children, prominent, app, size = "regular", type = "button", href, disabled, onClick, className }: GlassButtonProps) {
+export function GlassButton({ icon, label, children, prominent, app, size = "regular", type = "button", href, linkAs, disabled, onClick, className }: GlassButtonProps) {
   const iconOnly = !!icon && children == null;
   const cls = clsx(
     "pt-root pt-gbtn",
@@ -43,10 +42,11 @@ export function GlassButton({ icon, label, children, prominent, app, size = "reg
   );
   const ariaLabel = iconOnly ? label : undefined;
   if (href && !disabled) {
+    const LinkTag = linkTag(linkAs);
     return (
-      <Link href={href} className={cls} aria-label={ariaLabel}>
+      <LinkTag href={href} className={cls} onClick={onClick} aria-label={ariaLabel}>
         {content}
-      </Link>
+      </LinkTag>
     );
   }
   return (

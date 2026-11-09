@@ -6,12 +6,12 @@
  * `windowControls` : les trois boutons de fenêtre macOS (à false dans un navigateur).
  * Voir design-system/components/Sidebar/README.md.
  */
-import Link from "next/link";
 import { clsx } from "clsx";
 import type { LucideIcon } from "lucide-react";
 import { Fragment, useState, type ReactNode } from "react";
 import { AppIcon } from "./app-icon";
 import { appClass, Glyph, type AppId } from "./ds";
+import { linkTag, type LinkComponent } from "./link";
 
 export interface SidebarItem {
   id: string;
@@ -33,9 +33,12 @@ export interface SidebarProps {
   /** Pictogrammes des lignes sans app : couleur d'accent de cette app */
   app?: AppId;
   className?: string;
+  /** Composant de lien des lignes avec `href` (sinon celui de setLinkComponent) */
+  linkAs?: LinkComponent;
 }
 
-export function Sidebar({ sections, active, defaultActive, onSelect, windowControls = true, label = "Apps", footer, app, className }: SidebarProps) {
+export function Sidebar({ sections, active, defaultActive, onSelect, windowControls = true, label = "Apps", footer, app, className, linkAs }: SidebarProps) {
+  const LinkTag = linkTag(linkAs);
   const [inner, setInner] = useState(defaultActive ?? sections[0]?.items[0]?.id);
   const current = active ?? inner;
   const select = (id: string) => {
@@ -71,9 +74,9 @@ export function Sidebar({ sections, active, defaultActive, onSelect, windowContr
               return (
                 <li key={it.id}>
                   {it.href ? (
-                    <Link href={it.href} {...props}>
+                    <LinkTag href={it.href} {...props}>
                       {content}
-                    </Link>
+                    </LinkTag>
                   ) : (
                     <button type="button" {...props}>
                       {content}

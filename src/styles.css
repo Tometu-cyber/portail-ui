@@ -552,7 +552,7 @@ button.pt-row:focus-visible, a.pt-row:focus-visible { outline: 2px solid var(--a
 .pt-line-x span.is-last { transform: translateX(-100%); }
 
 /* ——— Ajouts pour Pecunia (Next.js) ——— */
-/* Les composants de navigation s'affichent aussi en liens <a> (next/link) */
+/* Les composants de navigation s'affichent aussi en liens <a> (ou le Link de l'app, voir link.tsx) */
 a.pt-gbtn, a.pt-btn, a.pt-tab, a.pt-side-item, a.pt-row, a.pt-menu-item { text-decoration: none; }
 a.pt-btn { color: inherit; }
 a.pt-btn-filled { color: var(--on-app); }

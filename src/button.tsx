@@ -1,18 +1,18 @@
 /**
  * Button : le bouton dans le contenu (cartes, formulaires, feuilles).
  * Variantes de la plus forte à la plus discrète : filled (une par écran), tinted, gray, plain.
- * Avec `href`, c'est un lien (next/link). Voir design-system/components/Button/README.md.
+ * Avec `href`, c'est un lien (voir link.tsx). Voir design-system/components/Button/README.md.
  */
-import Link from "next/link";
 import { clsx } from "clsx";
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { appClass, Glyph, type AppId } from "./ds";
+import { linkTag, type Linkable } from "./link";
 
 export type ButtonVariant = "filled" | "tinted" | "gray" | "plain";
 export type ButtonSize = "large" | "regular" | "small";
 
-export interface ButtonProps {
+export interface ButtonProps extends Linkable {
   variant?: ButtonVariant;
   size?: ButtonSize;
   app?: AppId;
@@ -21,7 +21,6 @@ export interface ButtonProps {
   full?: boolean;
   disabled?: boolean;
   type?: "button" | "submit";
-  href?: string;
   onClick?: () => void;
   /** Obligatoire pour un bouton sans texte */
   "aria-label"?: string;
@@ -55,6 +54,7 @@ export function Button({
   disabled,
   type = "button",
   href,
+  linkAs,
   onClick,
   children,
   className,
@@ -68,10 +68,11 @@ export function Button({
     </>
   );
   if (href && !disabled) {
+    const LinkTag = linkTag(linkAs);
     return (
-      <Link href={href} className={cls} aria-label={aria["aria-label"]}>
+      <LinkTag href={href} className={cls} onClick={onClick} aria-label={aria["aria-label"]}>
         {content}
-      </Link>
+      </LinkTag>
     );
   }
   if (href && disabled) {

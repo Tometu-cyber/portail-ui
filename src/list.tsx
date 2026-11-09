@@ -3,13 +3,13 @@
  * un titre, un sous-titre, une valeur à droite et un chevron si elle est cliquable.
  * Voir design-system/components/List/README.md et ListRow/README.md.
  */
-import Link from "next/link";
 import { clsx } from "clsx";
 import type { LucideIcon } from "lucide-react";
 import { Children, type CSSProperties, type ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
 import { AppIcon } from "./app-icon";
 import { appClass, Glyph, type AppId } from "./ds";
+import { linkTag, type Linkable } from "./link";
 
 export interface ListProps {
   header?: ReactNode;
@@ -39,7 +39,7 @@ export function List({ header, footer, inset = true, plain, children, className 
 
 export type ListRowTone = "default" | "positive" | "negative" | "app" | "strong";
 
-export interface ListRowProps {
+export interface ListRowProps extends Linkable {
   title: ReactNode;
   subtitle?: ReactNode;
   app?: AppId;
@@ -53,12 +53,11 @@ export interface ListRowProps {
   tone?: ListRowTone;
   /** Masque le chevron d'une ligne cliquable */
   chevron?: boolean;
-  href?: string;
   onClick?: () => void;
   className?: string;
 }
 
-export function ListRow({ title, subtitle, app, icon, appIcon, leading, value, tone, chevron = true, href, onClick, className }: ListRowProps) {
+export function ListRow({ title, subtitle, app, icon, appIcon, leading, value, tone, chevron = true, href, linkAs, onClick, className }: ListRowProps) {
   let lead: ReactNode = leading ?? null;
   if (!lead && appIcon) lead = <AppIcon app={app} size={30} />;
   else if (!lead && icon)
@@ -81,10 +80,11 @@ export function ListRow({ title, subtitle, app, icon, appIcon, leading, value, t
     </>
   );
   if (href) {
+    const LinkTag = linkTag(linkAs);
     return (
-      <Link href={href} className={cls}>
+      <LinkTag href={href} className={cls} onClick={onClick}>
         {content}
-      </Link>
+      </LinkTag>
     );
   }
   if (onClick) {
