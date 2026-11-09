@@ -6,7 +6,7 @@ export function Spinner({ size = 16, className, label }: { size?: number; classN
   return (
     <LoaderCircle
       size={size}
-      className={clsx("shrink-0 animate-spin", className)}
+      className={clsx("pt-spinner", className)}
       role={label ? "status" : undefined}
       aria-label={label}
       aria-hidden={label ? undefined : true}

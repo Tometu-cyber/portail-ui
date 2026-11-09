@@ -31,7 +31,7 @@ export function GlassButton({ icon, label, children, prominent, app, size = "reg
     prominent ? "pt-gbtn-prominent" : "pt-glass",
     size === "small" && "pt-gbtn-small",
     iconOnly && "pt-gbtn-icon",
-    disabled && "cursor-default opacity-40 active:scale-100",
+    disabled && "is-disabled",
     className,
   );
   const content = (

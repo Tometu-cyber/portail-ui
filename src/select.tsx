@@ -30,6 +30,7 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
+import { appClass, type AppId } from "./ds";
 
 export interface SelectProps {
   value?: string | number;
@@ -43,6 +44,8 @@ export interface SelectProps {
   className?: string;
   /** cell : compact et sans fond, pour une cellule de tableau (import CSV) */
   variant?: "field" | "cell";
+  /** Couleur d'accent (sinon celle du conteneur ; la liste prend celle posée sur <body>) */
+  app?: AppId;
   "aria-label"?: string;
   "aria-invalid"?: boolean;
 }
@@ -101,6 +104,7 @@ export function Select({
   placeholder = "Choisir…",
   className,
   variant = "field",
+  app,
   "aria-label": ariaLabel,
   "aria-invalid": ariaInvalid,
 }: SelectProps) {
@@ -237,7 +241,7 @@ export function Select({
             id={uid}
             role="listbox"
             aria-label={ariaLabel}
-            className={clsx("pt-root pt-app-finances pt-menu pt-glass-thick overflow-y-auto overscroll-contain", small && "pt-menu-small")}
+            className={clsx("pt-root pt-menu pt-glass-thick pt-select-list", appClass(app), small && "pt-menu-small")}
             style={place}
           >
             {options.map((o, i) => {
@@ -250,7 +254,7 @@ export function Select({
                   role="option"
                   aria-selected={checked}
                   aria-disabled={o.disabled || undefined}
-                  className={clsx("pt-menu-item shrink-0", i === active && "is-active")}
+                  className={clsx("pt-menu-item", i === active && "is-active")}
                   onPointerEnter={() => !o.disabled && setActive(i)}
                   // garde le focus sur le champ (clavier toujours actif)
                   onPointerDown={(e) => e.preventDefault()}
@@ -260,7 +264,7 @@ export function Select({
                     {checked && <Check size={small ? 13 : 16} strokeWidth={2.6} />}
                   </span>
                   <span className="pt-menu-text">
-                    <span className="truncate">{o.label}</span>
+                    <span className="pt-select-optlabel">{o.label}</span>
                   </span>
                 </div>
               );
@@ -287,23 +291,12 @@ export function Select({
         disabled={disabled}
         onClick={() => (open ? close() : show())}
         onKeyDown={onKey}
-        className={clsx(
-          "flex min-w-0 items-center gap-2 border border-transparent text-left text-label transition-[border-color,box-shadow,background-color] duration-150 focus-visible:border-finances focus-visible:bg-bg-tertiary focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 aria-[invalid=true]:border-danger",
-          // pleine largeur, sauf largeur donnée par l'appelant (w-28, w-48…)
-          !/(^|\s)w-/.test(className ?? "") && "w-full",
-          variant === "field"
-            ? // même apparence que les champs texte (inputClass)
-              "min-h-11 rounded-[12px] bg-fill-tertiary px-3 text-[17px] leading-[22px] tracking-[-0.43px] focus-visible:shadow-[0_0_0_4px_var(--finances-bg)] md:min-h-7 md:rounded-xs md:px-2 md:text-[13px] md:leading-4 md:tracking-[-0.08px]"
-            : "h-7 rounded-xs bg-transparent px-2 text-[13px] hover:bg-fill-tertiary focus-visible:shadow-[0_0_0_3px_var(--finances-bg)]",
-          open && "border-finances bg-bg-tertiary",
-          open && (variant === "field" ? "shadow-[0_0_0_4px_var(--finances-bg)]" : "shadow-[0_0_0_3px_var(--finances-bg)]"),
-          className,
-        )}
+        className={clsx("pt-root pt-select", variant === "cell" && "pt-select-cell", open && "is-open", appClass(app), className)}
       >
-        <span className={clsx("min-w-0 flex-1 truncate", !selected && "text-label-tertiary")}>
+        <span className={clsx("pt-select-value", !selected && "is-placeholder")}>
           {selected ? selected.label : placeholder}
         </span>
-        <ChevronsUpDown size={14} strokeWidth={2.2} className="shrink-0 text-label-secondary md:size-3" aria-hidden />
+        <ChevronsUpDown size={14} strokeWidth={2.2} className="pt-select-caret" aria-hidden />
       </button>
       {name && <input type="hidden" name={name} value={current} />}
       {list}

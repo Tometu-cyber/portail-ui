@@ -4,6 +4,7 @@ import { clsx } from "clsx";
 import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import { CircleAlert, CircleCheck, X } from "lucide-react";
 import { createPortal } from "react-dom";
+import { appClass, type AppId } from "./ds";
 import { animateSpring, project, rubberband, SPRINGS, velocityFrom, type SpringAnimation, type SpringConfig } from "./motion/spring";
 
 /** Préférence système « réduire les animations ». */
@@ -27,6 +28,7 @@ export function Modal({
   children,
   footer,
   size = "md",
+  app,
 }: {
   open: boolean;
   onClose: () => void;
@@ -34,6 +36,8 @@ export function Modal({
   children: ReactNode;
   footer?: ReactNode;
   size?: "md" | "lg";
+  /** Couleur d'accent (sinon celle posée sur <body>, la modale étant rendue à sa racine) */
+  app?: AppId;
 }) {
   const [mounted, setMounted] = useState(open);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -194,41 +198,37 @@ export function Modal({
   const { title: shownTitle, children: shownChildren, footer: shownFooter } = content.current;
   const dragProps = { onPointerDown, onPointerMove, onPointerUp, onPointerCancel: onPointerUp };
   // Rendue à la racine du document : ouverte depuis un en-tête collant (contexte d'empilement
-  // à part), la feuille passait sous la barre d'onglets. pt-app-finances : couleur d'accent.
+  // à part), la feuille passait sous la barre d'onglets.
   return createPortal(
-    <div className={clsx("pt-app-finances fixed inset-0 z-[90] flex items-end justify-center md:items-center md:p-6", !open && "pointer-events-none")} role="presentation">
-      <div ref={scrimRef} className="absolute inset-0 bg-glass-dim" style={{ opacity: 0 }} onClick={onClose} aria-hidden />
+    <div className={clsx("pt-root pt-modal-layer", appClass(app), !open && "is-closing")} role="presentation">
+      <div ref={scrimRef} className="pt-modal-scrim" style={{ opacity: 0 }} onClick={onClose} aria-hidden />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         style={{ opacity: 0 }}
-        className={clsx(
-          // feuille iOS 26 : flotte à 8 px des bords, coins de 34 px ; fenêtre centrée sur ordi
-          "relative mx-2 mb-[calc(8px+env(safe-area-inset-bottom,0px))] flex max-h-[calc(100dvh-60px)] w-[calc(100%-16px)] flex-col rounded-xl bg-bg-grouped text-label shadow-popover will-change-transform md:m-0 md:max-h-[88dvh] md:w-full md:rounded-lg md:bg-bg-primary md:shadow-window",
-          size === "lg" ? "md:max-w-2xl" : "md:max-w-md",
-        )}
+        className={clsx("pt-modal", size === "lg" && "pt-modal-lg")}
       >
         {/* poignée : zone de glisser de la feuille mobile */}
-        <div {...dragProps} className="flex shrink-0 touch-none justify-center pt-2 pb-1 md:hidden" aria-hidden>
-          <span className="h-[5px] w-9 rounded-full bg-label-tertiary" />
+        <div {...dragProps} className="pt-modal-grabber" aria-hidden>
+          <span />
         </div>
         {shownTitle && (
-          <div {...dragProps} className="flex touch-none items-center justify-between gap-3 px-4 pt-1.5 md:touch-auto md:px-5 md:pt-5">
-            <h2 className="text-[17px] leading-[22px] font-semibold tracking-[-0.43px] md:text-[15px] md:leading-5 md:font-bold md:tracking-[-0.23px]">{shownTitle}</h2>
+          <div {...dragProps} className="pt-modal-head">
+            <h2 className="pt-modal-title">{shownTitle}</h2>
             <button
               type="button"
               data-close
               onClick={onClose}
-              className="pt-glass -mr-1 flex size-11 shrink-0 items-center justify-center rounded-full text-label transition-transform motion-safe:active:scale-95 md:size-7"
+              className="pt-glass pt-modal-close"
               aria-label="Fermer"
             >
-              <X size={18} strokeWidth={1.75} aria-hidden />
+              <X size={18} strokeWidth={1.75} className="pt-icon" aria-hidden />
             </button>
           </div>
         )}
-        <div className="overflow-y-auto overscroll-contain px-4 py-4 md:px-5">{shownChildren}</div>
-        {shownFooter && <div className="flex justify-end gap-2 border-t-[0.5px] border-separator px-4 py-3 md:px-5">{shownFooter}</div>}
+        <div className="pt-modal-body">{shownChildren}</div>
+        {shownFooter && <div className="pt-modal-foot">{shownFooter}</div>}
       </div>
     </div>,
     document.body,
@@ -265,22 +265,16 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={push}>
       {children}
-      <div
-        className="pointer-events-none fixed inset-x-0 bottom-[calc(96px+env(safe-area-inset-bottom,0px))] z-[95] flex flex-col items-center gap-2 px-4 md:bottom-6"
-        aria-live="polite"
-      >
+      <div className="pt-root pt-toasts" aria-live="polite">
         {toasts.map((t) => (
           <div
             key={t.id}
-            className={clsx(
-              "pointer-events-auto flex items-center gap-2 rounded-full bg-bg-tertiary px-4 py-2.5 text-[15px] font-semibold tracking-[-0.23px] text-label shadow-popover md:text-[13px]",
-              t.leaving ? "toast-out" : "toast-in",
-            )}
+            className={clsx("pt-toast", `pt-toast-${t.tone}`, t.leaving ? "is-out" : "is-in")}
           >
             {t.tone === "success" ? (
-              <CircleCheck size={18} strokeWidth={2} className="shrink-0 text-finances-text" aria-hidden />
+              <CircleCheck size={18} strokeWidth={2} className="pt-icon" aria-hidden />
             ) : (
-              <CircleAlert size={18} strokeWidth={2} className="shrink-0 text-danger-text" aria-hidden />
+              <CircleAlert size={18} strokeWidth={2} className="pt-icon" aria-hidden />
             )}
             {t.message}
           </div>

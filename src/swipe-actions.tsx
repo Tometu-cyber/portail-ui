@@ -9,7 +9,7 @@ import { Spinner } from "./spinner";
 const ACTION_WIDTH = 92;
 /** Hystérésis avant de choisir entre glisser (horizontal) et défiler (vertical) */
 const SLOP = 10;
-const OPEN_EVENT = "pecunia:swipe-open";
+const OPEN_EVENT = "portail:swipe-open";
 
 /**
  * Glisser vers la gauche pour révéler « Supprimer » (écrans tactiles).
@@ -166,7 +166,7 @@ export function SwipeActions({
   }
 
   return (
-    <div ref={rootRef} className="relative overflow-hidden">
+    <div ref={rootRef} className="pt-root pt-swipe">
       <button
         ref={actionRef}
         type="button"
@@ -175,17 +175,15 @@ export function SwipeActions({
         aria-hidden={!open}
         tabIndex={open ? 0 : -1}
         disabled={pending}
-        // rouge de suppression : danger-text du thème clair (#d70015) dans les deux thèmes, pour
-        // garder le texte blanc à 5,5:1 (le rouge système plein n'atteint que 3,6:1)
-        className="absolute inset-y-0 right-0 flex flex-col items-center justify-center gap-1 bg-[#d70015] text-[13px] font-semibold text-white md:text-[11px]"
+        className="pt-swipe-action"
         style={{ width: ACTION_WIDTH, visibility: "hidden" }}
       >
-        {pending ? <Spinner size={18} className="text-white" label="Suppression" /> : <Trash2 size={20} strokeWidth={1.75} />}
+        {pending ? <Spinner size={18} label="Suppression" /> : <Trash2 size={20} strokeWidth={1.75} />}
         Supprimer
       </button>
       <div
         ref={rowRef}
-        className="relative touch-pan-y bg-bg-grouped-secondary will-change-transform"
+        className="pt-swipe-row"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}

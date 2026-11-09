@@ -26,6 +26,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { clsx } from "clsx";
+import { Glyph } from "./ds";
 
 /** Icônes nommées stockées en base (categories.icon, accounts.icon). */
 const ICONS: Record<string, LucideIcon> = {
@@ -71,16 +72,10 @@ export function IconBadge({
   size?: "sm" | "md" | "lg";
   className?: string;
 }) {
-  const Icon = iconFor(icon);
-  const box = size === "sm" ? "size-7" : size === "lg" ? "size-11" : "size-[30px]";
   const glyph = size === "sm" ? 14 : size === "lg" ? 22 : 17;
   return (
-    <span
-      className={clsx("inline-flex shrink-0 items-center justify-center rounded-full text-white", box, className)}
-      style={{ backgroundColor: color }}
-      aria-hidden
-    >
-      <Icon size={glyph} strokeWidth={1.75} />
+    <span className={clsx("pt-badge", size !== "md" && `pt-badge-${size}`, className)} style={{ backgroundColor: color }} aria-hidden>
+      <Glyph icon={iconFor(icon)} size={glyph} />
     </span>
   );
 }

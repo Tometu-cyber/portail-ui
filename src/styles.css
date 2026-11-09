@@ -658,3 +658,147 @@ a.pt-btn-gray { color: var(--label); }
   .pt-seg-auto .pt-seg-thumb { top: 2px; bottom: 2px; left: 2px; width: calc((100% - 4px) / var(--n)); }
   .pt-seg-auto .pt-seg-item { min-width: 48px; padding: 0 var(--space-2); font-size: 13px; line-height: 16px; letter-spacing: -0.08px; }
 }
+
+/* ===========================================================================
+   Styles qui étaient écrits en classes Tailwind dans les composants (mêmes valeurs).
+   =========================================================================== */
+
+a.pt-tile { text-decoration: none; color: inherit; }
+.pt-card-head > div:first-child { min-width: 0; }
+
+/* GlassButton désactivé */
+.pt-gbtn.is-disabled { cursor: default; opacity: 0.4; }
+.pt-gbtn.is-disabled:active { transform: none; }
+
+/* Spinner */
+.pt-spinner { flex: none; animation: pt-spin 1s linear infinite; }
+@keyframes pt-spin { to { transform: rotate(360deg); } }
+
+/* IconBadge : pastille ronde à la couleur d'une catégorie ou d'un compte */
+.pt-badge {
+  display: inline-flex; flex: none; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: var(--radius-full); color: #ffffff;
+}
+.pt-badge-sm { width: 28px; height: 28px; }
+.pt-badge-lg { width: 44px; height: 44px; }
+
+/* Select : déclencheur à l'apparence d'un TextField, liste dans le menu en verre épais
+   (repris de l'artefact). Pleine largeur ; une classe de l'app peut la changer. */
+.pt-select {
+  display: flex; align-items: center; gap: var(--space-2); width: 100%; min-width: 0;
+  min-height: var(--hit-target); padding: 0 var(--space-3);
+  border: 1px solid transparent; border-radius: 12px; background: var(--fill-tertiary);
+  color: var(--label); text-align: left; cursor: pointer;
+  font: 400 17px/22px var(--font-sans); letter-spacing: -0.43px;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+.pt-select:focus-visible, .pt-select.is-open { outline: none; border-color: var(--app); background: var(--bg-tertiary); box-shadow: 0 0 0 4px var(--app-bg); }
+.pt-select:disabled { opacity: 0.5; cursor: not-allowed; }
+.pt-select[aria-invalid="true"] { border-color: var(--danger); }
+.pt-select-value { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pt-select-value.is-placeholder { color: var(--label-tertiary); }
+.pt-select-caret { flex: none; color: var(--label-secondary); }
+.pt-select-cell {
+  min-height: var(--control-mac); padding: 0 var(--space-2); border-radius: var(--radius-xs);
+  font-size: 13px; line-height: 16px; letter-spacing: -0.08px;
+}
+.pt-select-cell .pt-select-caret { width: 12px; height: 12px; }
+@media (min-width: 768px) {
+  .pt-select {
+    min-height: var(--control-mac); padding: 0 var(--space-2); border-radius: var(--radius-xs);
+    font-size: 13px; line-height: 16px; letter-spacing: -0.08px;
+  }
+  .pt-select .pt-select-caret { width: 12px; height: 12px; }
+}
+.pt-select-cell { background: transparent; }
+.pt-select-cell:hover { background: var(--fill-tertiary); }
+.pt-select-cell:focus-visible, .pt-select-cell.is-open { box-shadow: 0 0 0 3px var(--app-bg); }
+.pt-select-list { overflow-y: auto; overscroll-behavior: contain; }
+.pt-select-list .pt-menu-item { flex-shrink: 0; }
+.pt-select-optlabel { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* SwipeActions : glisser une ligne vers la gauche pour révéler « Supprimer » */
+.pt-swipe { position: relative; overflow: hidden; }
+.pt-swipe-action {
+  position: absolute; top: 0; bottom: 0; right: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  padding: 0; border: 0; cursor: pointer;
+  /* danger-text du thème clair dans les deux thèmes : texte blanc à 5,5:1 */
+  background: #d70015; color: #ffffff;
+  font: 600 13px/16px var(--font-sans);
+}
+.pt-swipe-row { position: relative; touch-action: pan-y; background: var(--bg-grouped-secondary); will-change: transform; }
+@media (min-width: 768px) { .pt-swipe-action { font-size: 11px; line-height: 13px; } }
+
+/* Modal : feuille qui remonte du bas sur mobile, fenêtre centrée sur ordi */
+.pt-modal-layer {
+  position: fixed; inset: 0; z-index: 90;
+  display: flex; align-items: flex-end; justify-content: center;
+  font-family: var(--font-sans); color: var(--label);
+}
+.pt-modal-layer.is-closing { pointer-events: none; }
+.pt-modal-scrim { position: absolute; inset: 0; background: var(--glass-dim); }
+.pt-modal {
+  /* feuille iOS 26 : flotte à 8 px des bords, coins de 34 px */
+  position: relative; display: flex; flex-direction: column;
+  width: calc(100% - 16px); max-height: calc(100dvh - 60px);
+  margin: 0 8px calc(8px + env(safe-area-inset-bottom, 0px));
+  border-radius: var(--radius-xl); background: var(--bg-grouped); color: var(--label);
+  box-shadow: var(--shadow-popover); will-change: transform;
+}
+.pt-modal-grabber { display: flex; flex: none; justify-content: center; padding: 8px 0 4px; touch-action: none; }
+.pt-modal-grabber > span { width: 36px; height: 5px; border-radius: var(--radius-full); background: var(--label-tertiary); }
+.pt-modal-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: 6px var(--space-4) 0; touch-action: none; }
+.pt-modal-title { margin: 0; font-size: 17px; line-height: 22px; font-weight: 600; letter-spacing: -0.43px; }
+.pt-modal-close {
+  display: flex; flex: none; align-items: center; justify-content: center;
+  width: var(--hit-target); height: var(--hit-target); margin-right: -4px; padding: 0;
+  border-radius: var(--radius-full); color: var(--label); cursor: pointer;
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (prefers-reduced-motion: no-preference) { .pt-modal-close:active { transform: scale(0.95); } }
+.pt-modal-body { overflow-y: auto; overscroll-behavior: contain; padding: var(--space-4); }
+.pt-modal-foot { display: flex; justify-content: flex-end; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-top: 0.5px solid var(--separator); }
+@media (min-width: 768px) {
+  .pt-modal-layer { align-items: center; padding: var(--space-6); }
+  .pt-modal {
+    width: 100%; max-width: 448px; max-height: 88dvh; margin: 0;
+    border-radius: var(--radius-lg); background: var(--bg-primary); box-shadow: var(--shadow-window);
+  }
+  .pt-modal-lg { max-width: 672px; }
+  .pt-modal-grabber { display: none; }
+  .pt-modal-head { padding: var(--space-5) var(--space-5) 0; touch-action: auto; }
+  .pt-modal-title { font-size: 15px; line-height: 20px; font-weight: 700; letter-spacing: -0.23px; }
+  .pt-modal-close { width: var(--control-mac); height: var(--control-mac); }
+  .pt-modal-body { padding: var(--space-4) var(--space-5); }
+  .pt-modal-foot { padding: var(--space-3) var(--space-5); }
+}
+
+/* Toasts : montent du bas et repartent par le même chemin */
+.pt-toasts {
+  position: fixed; left: 0; right: 0; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); z-index: 95;
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+  padding: 0 var(--space-4); pointer-events: none;
+}
+.pt-toast {
+  display: flex; align-items: center; gap: var(--space-2); padding: 10px var(--space-4);
+  border-radius: var(--radius-full); background: var(--bg-tertiary); color: var(--label);
+  box-shadow: var(--shadow-popover); pointer-events: auto;
+  font: 600 15px/20px var(--font-sans); letter-spacing: -0.23px;
+}
+/* vert lisible pour l'icône de réussite (même valeur que finances-text) */
+.pt-toast-success .pt-icon { color: var(--finances-text); }
+.pt-toast-error .pt-icon { color: var(--danger-text); }
+.pt-toast.is-in { animation: pt-toast-in 260ms cubic-bezier(0.2, 0.9, 0.3, 1) both; }
+/* courbe inverse de l'entrée : le retour suit le même chemin */
+.pt-toast.is-out { animation: pt-toast-out 220ms cubic-bezier(0.7, 0, 0.8, 0.1) both; }
+@keyframes pt-toast-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } }
+@keyframes pt-toast-out { to { opacity: 0; transform: translateY(12px) scale(0.98); } }
+@media (min-width: 768px) {
+  .pt-toasts { bottom: var(--space-6); }
+  .pt-toast { font-size: 13px; line-height: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pt-toast.is-in { animation: pt-fade 200ms ease both; }
+  .pt-toast.is-out { animation: pt-fade 200ms ease reverse both; }
+}

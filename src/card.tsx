@@ -29,7 +29,7 @@ export function Card({ title, subtitle, action, app, children, className, style 
     <section className={clsx("pt-root pt-card", appClass(app), className)} style={style}>
       {(title || action) && (
         <header className="pt-card-head">
-          <div className="min-w-0">
+          <div>
             {title && <h2 className="pt-card-title">{title}</h2>}
             {subtitle && <p className="pt-card-sub">{subtitle}</p>}
           </div>
