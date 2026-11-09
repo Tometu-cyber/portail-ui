@@ -719,6 +719,7 @@ a.pt-tile { text-decoration: none; color: inherit; }
   background: #d70015; color: #ffffff;
   font: 600 13px/16px var(--font-sans);
 }
+.pt-swipe-action-app { background: var(--app); color: var(--on-app); }
 .pt-swipe-row { position: relative; touch-action: pan-y; background: var(--bg-grouped-secondary); will-change: transform; }
 @media (min-width: 768px) { .pt-swipe-action { font-size: 11px; line-height: 13px; } }
 

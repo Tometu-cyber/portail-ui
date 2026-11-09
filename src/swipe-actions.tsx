@@ -1,9 +1,11 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
-import { useEffect, useId, useRef, useState, useTransition, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { clsx } from "clsx";
+import { useEffect, useId, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { Glyph } from "./ds.js";
+import type { IconSource } from "./icon.js";
 import { animateSpring, project, rubberband, SPRINGS, velocityFrom, type SpringAnimation } from "./motion/spring.js";
-import { prefersReducedMotion, useToast } from "./overlay.js";
+import { prefersReducedMotion } from "./overlay.js";
 import { Spinner } from "./spinner.js";
 
 const ACTION_WIDTH = 92;
@@ -11,27 +13,32 @@ const ACTION_WIDTH = 92;
 const SLOP = 10;
 const OPEN_EVENT = "portail:swipe-open";
 
+export interface SwipeActionsProps {
+  children: ReactNode;
+  /** Libellé de l'action révélée (« Supprimer », « Archiver »…) */
+  label: string;
+  icon?: IconSource;
+  /** destructive : rouge (par défaut) ; app : couleur de l'app */
+  tone?: "destructive" | "app";
+  /** Appelée au toucher de l'action. L'app fait le travail et affiche son retour (toast…). */
+  onAction: () => void;
+  /**
+   * Action en cours : spinner et geste bloqué ; quand il repasse à false, la ligne se referme.
+   * Sans `pending`, la ligne se referme dès le toucher.
+   */
+  pending?: boolean;
+}
+
 /**
- * Glisser vers la gauche pour révéler « Supprimer » (écrans tactiles).
+ * Glisser une ligne vers la gauche pour révéler une action (écrans tactiles).
  * La ligne suit le doigt 1:1, résiste au-delà des bords, et l'élan au lâcher décide
  * d'ouvrir ou de refermer. Une seule ligne ouverte à la fois ; toucher ailleurs referme.
+ * Composant visuel : il ne sait pas ce que fait l'action.
  */
-export function SwipeActions({
-  children,
-  label,
-  onDelete,
-  successMessage = "Supprimée",
-}: {
-  children: ReactNode;
-  /** Nom accessible du bouton de suppression */
-  label: string;
-  onDelete: () => Promise<{ ok: true } | { ok: false; error: string }>;
-  successMessage?: string;
-}) {
+export function SwipeActions({ children, label, icon, tone = "destructive", onAction, pending }: SwipeActionsProps) {
+  const busy = pending ?? false;
   const id = useId();
-  const toast = useToast();
   const [open, setOpen] = useState(false);
-  const [pending, startTransition] = useTransition();
   const rootRef = useRef<HTMLDivElement>(null);
   const rowRef = useRef<HTMLDivElement>(null);
   const actionRef = useRef<HTMLButtonElement>(null);
@@ -97,7 +104,7 @@ export function SwipeActions({
   }, []);
 
   const onPointerDown = (e: ReactPointerEvent) => {
-    if (e.pointerType === "mouse" || pending) return; // à la souris : la modale de modification suffit
+    if (e.pointerType === "mouse" || busy) return; // à la souris : pas de glissé, l'app propose l'action autrement
     const m = motion.current;
     const current = m.anim ? m.anim.stop().value : m.offset; // rattrapée en plein vol : on part de l'affiché
     m.anim = null;
@@ -153,33 +160,34 @@ export function SwipeActions({
     m.suppressClick = false;
   };
 
-  function remove() {
-    startTransition(async () => {
-      const r = await onDelete();
-      startTransition(() => {
-        if (!r.ok) {
-          toast(r.error, "error");
-          settle(0);
-        } else toast(successMessage);
-      });
-    });
-  }
+  // Fin de l'action (pending repasse à false) : la ligne se referme si elle est toujours là
+  const wasBusy = useRef(busy);
+  useEffect(() => {
+    if (wasBusy.current && !busy) settle(0);
+    wasBusy.current = busy;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [busy]);
+
+  const act = () => {
+    if (busy) return;
+    onAction();
+    if (pending === undefined) settle(0);
+  };
 
   return (
     <div ref={rootRef} className="pt-root pt-swipe">
       <button
         ref={actionRef}
         type="button"
-        onClick={remove}
-        aria-label={label}
+        onClick={act}
         aria-hidden={!open}
+        aria-busy={busy || undefined}
         tabIndex={open ? 0 : -1}
-        disabled={pending}
-        className="pt-swipe-action"
+        className={clsx("pt-swipe-action", tone === "app" && "pt-swipe-action-app")}
         style={{ width: ACTION_WIDTH, visibility: "hidden" }}
       >
-        {pending ? <Spinner size={18} label="Suppression" /> : <Trash2 size={20} strokeWidth={1.75} />}
-        Supprimer
+        {busy ? <Spinner size={18} /> : icon ? <Glyph icon={icon} size={20} /> : null}
+        {label}
       </button>
       <div
         ref={rowRef}
