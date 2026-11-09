@@ -1,0 +1,152 @@
+/* --- Généré depuis design-system/tokens.json (ne pas éditer à la main) --- */
+:root {
+  /* color */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f2f2f7;
+  --bg-tertiary: #ffffff;
+  --bg-grouped: #f2f2f7;
+  --bg-grouped-secondary: #ffffff;
+  --bg-window: #ececec;
+  --label: #000000;
+  --label-secondary: rgba(60, 60, 67, 0.6);
+  --label-tertiary: rgba(60, 60, 67, 0.3);
+  --label-quaternary: rgba(60, 60, 67, 0.18);
+  --separator: rgba(60, 60, 67, 0.29);
+  --separator-opaque: #c6c6c8;
+  --fill-primary: rgba(120, 120, 128, 0.2);
+  --fill-secondary: rgba(120, 120, 128, 0.16);
+  --fill-tertiary: rgba(118, 118, 128, 0.12);
+  --gray: #8e8e93;
+  --gray-2: #aeaeb2;
+  --gray-3: #c7c7cc;
+  --gray-4: #d1d1d6;
+  --gray-5: #e5e5ea;
+  --gray-6: #f2f2f7;
+  --glass-regular: rgba(255, 255, 255, 0.62);
+  --glass-clear: rgba(255, 255, 255, 0.2);
+  --glass-thick: rgba(246, 246, 248, 0.86);
+  --glass-highlight: rgba(255, 255, 255, 0.8);
+  --glass-stroke: rgba(0, 0, 0, 0.08);
+  --glass-dim: rgba(0, 0, 0, 0.2);
+  --tint: #007aff;
+  --tint-text: #0040dd;
+  --tint-bg: #e5efff;
+  --success: #34c759;
+  --warning: #ff9500;
+  --danger: #ff3b30;
+  --danger-text: #d70015;
+  --finances: #34c759;
+  --finances-text: #1e7a34;
+  --finances-bg: #e3f5e7;
+  --on-finances: #000000;
+  --sport: #ff2d55;
+  --sport-text: #d30f45;
+  --sport-bg: #ffe6eb;
+  --on-sport: #000000;
+  --alternance: #5856d6;
+  --alternance-text: #3634a3;
+  --alternance-bg: #ebebfb;
+  --on-alternance: #ffffff;
+  --alimentation: #ff9500;
+  --alimentation-text: #c93400;
+  --alimentation-bg: #ffefdf;
+  --on-alimentation: #000000;
+  --notes: #ffcc00;
+  --notes-text: #a05a00;
+  --notes-bg: #fff6d6;
+  --on-notes: #000000;
+  /* shadow */
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-popover: 0 12px 40px rgba(0, 0, 0, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  --shadow-window: 0 22px 70px rgba(0, 0, 0, 0.28), 0 0 0 0.5px rgba(0, 0, 0, 0.18);
+  /* spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  /* radius */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 26px;
+  --radius-xl: 34px;
+  --radius-full: 999px;
+  /* blur */
+  --glass-blur: 24px;
+  --glass-blur-thick: 40px;
+  --glass-blur-clear: 12px;
+  /* size */
+  --hit-target: 44px;
+  --control-mac: 28px;
+  --tabbar-height: 62px;
+  --sidebar-width: 240px;
+  --content-max: 1080px;
+  /* typographie */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Helvetica Neue", Arial, sans-serif;
+  --font-rounded: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  /* color */
+  --bg-primary: #000000;
+  --bg-secondary: #1c1c1e;
+  --bg-tertiary: #2c2c2e;
+  --bg-grouped: #000000;
+  --bg-grouped-secondary: #1c1c1e;
+  --bg-window: #323232;
+  --label: #ffffff;
+  --label-secondary: rgba(235, 235, 245, 0.6);
+  --label-tertiary: rgba(235, 235, 245, 0.3);
+  --label-quaternary: rgba(235, 235, 245, 0.16);
+  --separator: rgba(84, 84, 88, 0.65);
+  --separator-opaque: #38383a;
+  --fill-primary: rgba(120, 120, 128, 0.36);
+  --fill-secondary: rgba(120, 120, 128, 0.32);
+  --fill-tertiary: rgba(118, 118, 128, 0.24);
+  --gray-2: #636366;
+  --gray-3: #48484a;
+  --gray-4: #3a3a3c;
+  --gray-5: #2c2c2e;
+  --gray-6: #1c1c1e;
+  --glass-regular: rgba(44, 44, 48, 0.55);
+  --glass-clear: rgba(255, 255, 255, 0.08);
+  --glass-thick: rgba(30, 30, 32, 0.82);
+  --glass-highlight: rgba(255, 255, 255, 0.22);
+  --glass-stroke: rgba(255, 255, 255, 0.12);
+  --glass-dim: rgba(0, 0, 0, 0.48);
+  --tint: #0a84ff;
+  --tint-text: #409cff;
+  --tint-bg: #0a2445;
+  --success: #30d158;
+  --warning: #ff9f0a;
+  --danger: #ff453a;
+  --danger-text: #ff6961;
+  --finances: #30d158;
+  --finances-text: #30db5b;
+  --finances-bg: #0f2a16;
+  --sport: #ff375f;
+  --sport-text: #ff6482;
+  --sport-bg: #3a0f19;
+  --alternance: #5e5ce6;
+  --alternance-text: #7d7aff;
+  --alternance-bg: #1c1b42;
+  --alimentation: #ff9f0a;
+  --alimentation-text: #ffb340;
+  --alimentation-bg: #3a2406;
+  --notes: #ffd60a;
+  --notes-text: #ffd426;
+  --notes-bg: #332a04;
+  /* shadow */
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-card: none;
+  --shadow-popover: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+  --shadow-window: 0 22px 70px rgba(0, 0, 0, 0.6), 0 0 0 0.5px rgba(255, 255, 255, 0.14);
+  color-scheme: dark;
+}
