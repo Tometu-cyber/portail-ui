@@ -10,11 +10,23 @@ partagés entre Pecunia et hop. Référence visuelle : l'artefact « Portail ».
 
 ## Installation (depuis git)
 
+Depuis npm 12, les dépendances git sont refusées par défaut (`EALLOWGIT`). Dans l'app, les
+autoriser pour celles de son propre `package.json`, dans un fichier `.npmrc` à la racine :
+
+```ini
+allow-git=root
+```
+
+Puis :
+
 ```bash
 npm install github:Tometu-cyber/portail-ui#v0.1.0
 ```
 
-npm clone le dépôt au tag demandé, lance le build (`prepare`) et n'installe que `dist/`.
+npm clone le dépôt au tag demandé, lance le build (`prepare`) dans ce clone et n'installe que
+le paquet construit (`dist/` et `src/`). npm affiche ensuite « install scripts blocked » pour
+`@portail/ui` : c'est sans effet, le build a déjà eu lieu.
+
 Pour mettre à jour : poser un nouveau tag ici, puis changer le tag dans l'app.
 
 ## Utilisation
@@ -80,6 +92,14 @@ de l'artefact) ou un composant lucide (`icon={Plus}`) pour un pictogramme hors l
 | `swipe-actions`, `spinner` | `SwipeActions`, `Spinner` |
 | `icon`, `category-icon` | `Icon`, `Glyph` ; `IconBadge`, `iconFor` (icônes de catégories de Pecunia) |
 | `link` | `setLinkComponent`, types `LinkComponent`, `Linkable` |
+
+## Écarts avec l'API de l'artefact
+
+Les composants viennent de Pecunia. Un seul diffère de l'artefact (que suit hop) :
+
+- `Select` : options en enfants (`<option value>`) et `onChange(event)` avec
+  `event.target.value`, comme un `<select>`. L'artefact prend `options={[…]}`,
+  `onChange(value)` et `size`.
 
 ## Développement
 
