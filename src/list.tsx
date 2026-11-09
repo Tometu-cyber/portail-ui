@@ -4,7 +4,7 @@
  * Voir design-system/components/List/README.md et ListRow/README.md.
  */
 import { clsx } from "clsx";
-import type { LucideIcon } from "lucide-react";
+import type { IconSource } from "./icon";
 import { Children, type CSSProperties, type ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
 import { AppIcon } from "./app-icon";
@@ -44,7 +44,7 @@ export interface ListRowProps extends Linkable {
   subtitle?: ReactNode;
   app?: AppId;
   /** Pictogramme dans une pastille ronde <app>-bg */
-  icon?: LucideIcon;
+  icon?: IconSource;
   /** Icône d'app complète à la place de la pastille */
   appIcon?: boolean;
   /** Repère libre (remplace icon / appIcon) */

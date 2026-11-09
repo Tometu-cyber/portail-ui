@@ -4,13 +4,13 @@
  * par écran. Sans texte, `label` est obligatoire. Voir design-system/components/GlassButton/README.md.
  */
 import { clsx } from "clsx";
-import type { LucideIcon } from "lucide-react";
+import type { IconSource } from "./icon";
 import type { ReactNode } from "react";
 import { appClass, Glyph, type AppId } from "./ds";
 import { linkTag, type Linkable } from "./link";
 
 export interface GlassButtonProps extends Linkable {
-  icon?: LucideIcon;
+  icon?: IconSource;
   /** Nom lu par les lecteurs d'écran (obligatoire sans texte) */
   label?: string;
   children?: ReactNode;

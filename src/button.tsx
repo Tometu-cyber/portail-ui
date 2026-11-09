@@ -4,7 +4,7 @@
  * Avec `href`, c'est un lien (voir link.tsx). Voir design-system/components/Button/README.md.
  */
 import { clsx } from "clsx";
-import type { LucideIcon } from "lucide-react";
+import type { IconSource } from "./icon";
 import type { ReactNode } from "react";
 import { appClass, Glyph, type AppId } from "./ds";
 import { linkTag, type Linkable } from "./link";
@@ -16,7 +16,7 @@ export interface ButtonProps extends Linkable {
   variant?: ButtonVariant;
   size?: ButtonSize;
   app?: AppId;
-  icon?: LucideIcon;
+  icon?: IconSource;
   /** Pleine largeur */
   full?: boolean;
   disabled?: boolean;

@@ -6,7 +6,8 @@
  * est un lien. Voir design-system/components/Menu/README.md.
  */
 import { clsx } from "clsx";
-import { Check, ChevronsUpDown, Ellipsis, type LucideIcon } from "lucide-react";
+import { Check, ChevronsUpDown, Ellipsis } from "lucide-react";
+import type { IconSource } from "./icon";
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import { AppIcon } from "./app-icon";
 import { appClass, Glyph, type AppId } from "./ds";
@@ -16,7 +17,7 @@ export type MenuItem =
   | {
       id: string;
       label: string;
-      icon?: LucideIcon;
+      icon?: IconSource;
       app?: AppId;
       hint?: string;
       shortcut?: string;
@@ -40,7 +41,7 @@ export interface MenuProps {
   /** Texte du bouton (actions) ou nom lu par les lecteurs d'écran */
   label?: string;
   placeholder?: string;
-  icon?: LucideIcon;
+  icon?: IconSource;
   /** Bouton rond en verre « … » */
   iconOnly?: boolean;
   variant?: "filled" | "tinted" | "gray" | "plain";

@@ -6,7 +6,8 @@
  * Safari), 28 px sur ordi (`size: "small"`). Voir design-system/components/TextField/README.md.
  */
 import { clsx } from "clsx";
-import { CircleAlert, Search, type LucideIcon } from "lucide-react";
+import { CircleAlert, Search } from "lucide-react";
+import type { IconSource } from "./icon";
 import { useId, type ComponentProps } from "react";
 import { appClass, Glyph, type AppId } from "./ds";
 
@@ -19,7 +20,7 @@ export interface TextFieldProps extends Omit<ComponentProps<"input">, "size" | "
   error?: string;
   /** Unité à droite (« € ») */
   suffix?: string;
-  icon?: LucideIcon;
+  icon?: IconSource;
   variant?: "default" | "search";
   size?: "regular" | "small";
   app?: AppId;

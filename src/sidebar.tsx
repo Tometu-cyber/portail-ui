@@ -7,7 +7,7 @@
  * Voir design-system/components/Sidebar/README.md.
  */
 import { clsx } from "clsx";
-import type { LucideIcon } from "lucide-react";
+import type { IconSource } from "./icon";
 import { Fragment, useState, type ReactNode } from "react";
 import { AppIcon } from "./app-icon";
 import { appClass, Glyph, type AppId } from "./ds";
@@ -17,7 +17,7 @@ export interface SidebarItem {
   id: string;
   label: string;
   app?: AppId;
-  icon?: LucideIcon;
+  icon?: IconSource;
   badge?: ReactNode;
   href?: string;
 }

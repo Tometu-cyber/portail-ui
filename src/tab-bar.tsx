@@ -11,7 +11,7 @@
  * l'onglet sous le doigt s'ouvre au lâcher. Un simple toucher reste un toucher.
  */
 import { clsx } from "clsx";
-import type { LucideIcon } from "lucide-react";
+import type { IconSource } from "./icon";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { appClass, Glyph, type AppId } from "./ds";
 import { GlassButton } from "./glass-button";
@@ -21,7 +21,7 @@ export interface TabItem {
   id: string;
   /** Un seul mot */
   label: string;
-  icon: LucideIcon;
+  icon: IconSource;
   href?: string;
 }
 
@@ -30,7 +30,7 @@ export interface TabBarProps {
   active?: string;
   defaultActive?: string;
   onChange?: (id: string) => void;
-  action?: { icon: LucideIcon; label: string; href?: string; onClick?: () => void; prominent?: boolean };
+  action?: { icon: IconSource; label: string; href?: string; onClick?: () => void; prominent?: boolean };
   app?: AppId;
   label?: string;
   className?: string;

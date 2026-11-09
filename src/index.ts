@@ -1,14 +1,17 @@
 // Point d'entrée de @portail/ui
 export * from "./app-header";
 export * from "./app-icon";
+export * from "./app-tile";
 export * from "./bar-chart";
 export * from "./button";
 export * from "./card";
+export * from "./category-icon";
 export * from "./date-picker";
 export * from "./ds";
 export * from "./glass-button";
-export * from "./icons";
+export * from "./icon";
 export * from "./line-chart";
+export * from "./link";
 export * from "./list";
 export * from "./menu";
 export * from "./overlay";
@@ -22,4 +25,3 @@ export * from "./swipe-actions";
 export * from "./tab-bar";
 export * from "./text-field";
 export * from "./toggle";
-export * from "./link";

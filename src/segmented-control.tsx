@@ -5,7 +5,7 @@
  * Flèches, Début et Fin changent de choix. Voir design-system/components/SegmentedControl/README.md.
  */
 import { clsx } from "clsx";
-import type { LucideIcon } from "lucide-react";
+import type { IconSource } from "./icon";
 import { useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { appClass, Glyph, type AppId } from "./ds";
 
@@ -13,7 +13,7 @@ export interface SegmentedItem<T extends string = string> {
   id: T;
   label: string;
   /** Avec une icône, le segment n'affiche que le pictogramme (label lu par les lecteurs d'écran) */
-  icon?: LucideIcon;
+  icon?: IconSource;
 }
 
 export interface SegmentedControlProps<T extends string = string> {
