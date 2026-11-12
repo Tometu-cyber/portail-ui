@@ -17,6 +17,8 @@ export interface SwipeActionsProps {
   children: ReactNode;
   /** Libellé de l'action révélée (« Supprimer », « Archiver »…) */
   label: string;
+  /** Nom lu par les lecteurs d'écran, s'il doit être plus précis que label (« Supprimer Carrefour ») */
+  ariaLabel?: string;
   icon?: IconSource;
   /** destructive : rouge (par défaut) ; app : couleur de l'app */
   tone?: "destructive" | "app";
@@ -35,7 +37,7 @@ export interface SwipeActionsProps {
  * d'ouvrir ou de refermer. Une seule ligne ouverte à la fois ; toucher ailleurs referme.
  * Composant visuel : il ne sait pas ce que fait l'action.
  */
-export function SwipeActions({ children, label, icon, tone = "destructive", onAction, pending }: SwipeActionsProps) {
+export function SwipeActions({ children, label, ariaLabel, icon, tone = "destructive", onAction, pending }: SwipeActionsProps) {
   const busy = pending ?? false;
   const id = useId();
   const [open, setOpen] = useState(false);
@@ -180,6 +182,7 @@ export function SwipeActions({ children, label, icon, tone = "destructive", onAc
         ref={actionRef}
         type="button"
         onClick={act}
+        aria-label={ariaLabel}
         aria-hidden={!open}
         aria-busy={busy || undefined}
         tabIndex={open ? 0 : -1}
